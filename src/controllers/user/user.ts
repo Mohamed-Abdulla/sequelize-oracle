@@ -24,6 +24,23 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+//update user by id
+export const updateUserById = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    if (user) {
+      user.name = "Jane Doe";
+      await user.save();
+      res.send("user updated");
+    } else {
+      res.send("user not found");
+    }
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+    res.send("user not created");
+  }
+};
+
 //get user by id
 export const getUserById = async (req: Request, res: Response) => {
   try {
